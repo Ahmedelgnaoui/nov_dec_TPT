@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>November–December Classroom Events • Cross‑Niche Product Planner</title>
+  <style>
+    :root{
+      --bg: #f7f8fc;
+      --card: #ffffff;
+      --ink: #1f2937;
+      --muted:#6b7280;
+      --brand:#0ea5e9;         /* icy blue */
+      --brand-2:#7c3aed;       /* winter violet */
+      --accent:#22c55e;        /* evergreen */
+      --gold:#eab308;          /* warm accent */
+      --hair:#e5e7eb;
+      --chip:#eef2ff;
+      --danger:#ef4444;
+      --shadow: 0 6px 22px rgba(17,24,39,.10);
+      --radius: 18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--ink);
+      background:
+        radial-gradient(1200px 600px at 20% -10%, #e8f6ff 0%, rgba(232,246,255,0) 60%) no-repeat,
+        radial-gradient(900px 450px at 120% 10%, #f1e9ff 0%, rgba(241,233,255,0) 60%) no-repeat,
+        var(--bg);
+      min-height:100vh;
+    }
+    header{
+      position:sticky; top:0; z-index:10;
+      backdrop-filter: blur(8px);
+      background: rgba(247,248,252,.8);
+      border-bottom:1px solid var(--hair);
+    }
+    .wrap{max-width:1200px; margin:0 auto; padding:18px 20px;}
+    .brand{
+      display:flex; gap:14px; align-items:center;
+    }
+    .logo{
+      width:40px;height:40px;border-radius:12px;
+      background: conic-gradient(from 210deg, var(--brand), var(--brand-2), var(--accent));
+      box-shadow: var(--shadow);
+    }
+    .title{font-size:clamp(18px,2.6vw,28px); font-weight:800; letter-spacing:.2px;}
+    .subtitle{color:var(--muted); font-size:14px; margin-top:2px}
+    .controls{
+      margin-top:14px; display:flex; flex-wrap:wrap; gap:10px
+    }
+    select, input[type="search"]{
+      border:1px solid var(--hair);
+      background:var(--card);
+      padding:10px 12px;
+      border-radius:12px; min-width:220px;
+      font-size:14px; color:var(--ink);
+      box-shadow: var(--shadow);
+      outline:none;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap:18px;
+    }
+    .section-title{
+      grid-column: 1/-1;
+      margin: 26px 0 6px;
+      font-weight:800; letter-spacing:.3px;
+      font-size: clamp(18px,2.4vw,22px);
+      color:#0f172a;
+    }
+    .event-card{
+      grid-column: span 12;
+      background:var(--card);
+      border:1px solid var(--hair);
+      border-radius: var(--radius);
+      padding:16px;
+      box-shadow: var(--shadow);
+      transition: transform .15s ease, box-shadow .2s ease;
+      cursor:pointer;
+    }
+    @media (min-width:680px){ .event-card{ grid-column: span 6; } }
+    @media (min-width:1024px){ .event-card{ grid-column: span 4; } }
+    .event-card:hover{ transform: translateY(-2px); box-shadow: 0 10px 28px rgba(17,24,39,.14); }
+    .event-head{display:flex; justify-content:space-between; gap:10px; align-items:flex-start}
+    .event-name{font-weight:800; line-height:1.2; font-size:16px}
+    .date{color:var(--muted); font-size:12px;}
+    .chips{display:flex; flex-wrap:wrap; gap:6px; margin-top:10px}
+    .chip{
+      font-size:11px; color:#4338ca; background:var(--chip);
+      border:1px solid #e0e7ff; padding:5px 8px; border-radius:999px;
+    }
+    .blurb{margin-top:10px; font-size:13px; color:#374151}
+    .ideas{display:none; margin-top:12px; border-top:1px dashed var(--hair); padding-top:10px}
+    .idea{background:#f9fafb; border:1px solid var(--hair); border-radius:12px; padding:10px; margin:10px 0}
+    .idea h4{margin:0 0 6px 0; font-size:13.5px}
+    .meta{display:flex; gap:8px; flex-wrap:wrap; margin-top:8px}
+    .badge{font-size:11px; border:1px solid var(--hair); padding:4px 7px; border-radius:999px; color:#111827; background:#fff}
+    .small{font-size:12px; color:var(--muted)}
+    .footer-note{margin:30px 0 60px; color:var(--muted); font-size:12px; text-align:center}
+    .cta{
+      margin-left:auto;
+      display:inline-flex; gap:8px; align-items:center;
+      background:linear-gradient(135deg, var(--brand), var(--brand-2));
+      color:#fff; border:none; padding:10px 12px; border-radius:999px; cursor:pointer; font-weight:700;
+      box-shadow: var(--shadow);
+    }
+    .count{font-size:12px; color:var(--muted); margin-left:8px}
+    .hide{display:none!important}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <div class="title">November–December Cross‑Niche Product Planner</div>
+          <div class="subtitle">Click any card to reveal 2–3 product ideas with subjects, formats, and deliverables.</div>
+        </div>
+        <button class="cta" id="expandAll" style="margin-left:auto">Expand All</button>
+      </div>
+      <div class="controls">
+        <input id="search" type="search" placeholder="Search events or ideas (e.g., gingerbread, math, escape room)"/>
+        <select id="month">
+          <option value="all">All Months</option>
+          <option value="November">November</option>
+          <option value="December">December</option>
+        </select>
+        <select id="subject">
+          <option value="all">All Subjects/Types</option>
+          <option>math</option><option>reading comprehension</option><option>reading comprehension passages and questions</option>
+          <option>place value</option><option>writing</option><option>multiplication</option><option>sight words</option>
+          <option>morning work</option><option>writing prompts</option><option>color by number</option><option>word problems</option>
+          <option>fractions</option><option>addition</option><option>nouns</option><option>STEM/STEAM</option><option>craft</option>
+          <option>escape room</option><option>bulletin board</option><option>door decor</option><option>CS/Hour of Code</option>
+        </select>
+        <span class="count" id="count"></span>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="grid" id="grid">
+      <div class="section-title">November</div>
+      <!-- Cards will be injected here by JS for November -->
+      <div class="section-title">December</div>
+      <!-- Cards will be injected here by JS for December -->
+    </div>
+    <p class="footer-note">
+      Tip: Each idea lists suggested <strong>subjects</strong> to cross‑niche (e.g., math, reading, writing prompts) and <strong>formats</strong> (worksheets, crafts, escape rooms, bulletin boards) aligned to TPT search patterns.
+    </p>
+  </main>
+
+<script>
+// Utility to build idea blocks
+function ideaHTML(i){
+  return `<div class="idea">
+    <h4>${i.title}</h4>
+    <div class="small">${i.desc}</div>
+    <div class="meta">
+      ${(i.subjects||[]).map(s=>`<span class="badge">📘 ${s}</span>`).join('')}
+      ${(i.formats||[]).map(s=>`<span class="badge">🧩 ${s}</span>`).join('')}
+      ${(i.grades?`<span class="badge">🎓 ${i.grades}</span>`:'')}
+      ${(i.deliverables?`<span class="badge">📄 ${i.deliverables}</span>`:'')}
+    </div>
+  </div>`
+}
+
+const events = [
+  // ---------------------- NOVEMBER ----------------------
+  {
+    month:"November", name:"Native American Heritage Month",
+    date:"All November", blurb:"Honor Indigenous histories and cultures with respectful, age‑appropriate lessons.",
+    chips:["social studies","ELA","art"],
+    ideas:[
+      {title:"Tribal Regions Map & Reading Mini‑Unit",
+       desc:"Short passages about cultural regions + map labeling and reflection prompts.",
+       subjects:["reading comprehension","nouns","writing"], formats:["worksheets","map activity"], grades:"2–5", deliverables:"6 pages"},
+      {title:"Native Land Acknowledgement Mini‑Posters",
+       desc:"Editable templates students personalize after learning what a land acknowledgement is.",
+       subjects:["writing prompts"], formats:["poster","bulletin board"], grades:"2–6", deliverables:"color + B/W"},
+      {title:"Symbols & Storytelling Art + Writing",
+       desc:"Analyze traditional symbols respectfully; students create a symbol and write its meaning.",
+       subjects:["writing","art"], formats:["craft"], grades:"2–5", deliverables:"templates"}
+    ]
+  },
+  {month:"November", name:"Día de los Muertos",
+   date:"Nov 1–2", blurb:"Celebrate remembrance and culture with non‑religious, kid‑friendly activities.",
+   chips:["culture","art","Spanish/ELA"],
+   ideas:[
+     {title:"Ofrenda Vocabulary & Labeling",
+      desc:"Picture word cards + labeling page; include bilingual labels when appropriate.",
+      subjects:["nouns","reading comprehension"], formats:["worksheets","word wall"], grades:"1–4", deliverables:"cards + sheets"},
+     {title:"Sugar Skull Symmetry & Fractions",
+      desc:"Draw the missing half, then color by fraction code.",
+      subjects:["fractions","color by number"], formats:["math art"], grades:"2–5", deliverables:"3 levels"},
+     {title:"Remembrance Writing Page",
+      desc:"Sentence frames for a respectful memory page.",
+      subjects:["writing prompts"], formats:["journal"], grades:"1–3", deliverables:"B/W printable"}
+   ]},
+  {month:"November", name:"World Vegan Day", date:"Nov 1", blurb:"Explore plant‑based foods and balanced meals.",
+   chips:["science","health","math"],
+   ideas:[
+     {title:"Build‑a‑Plate Sorting & Graphing",
+      desc:"Sort foods by group; make a bar graph of class favorites.",
+      subjects:["word problems","graphing","addition"], formats:["worksheets"], grades:"1–3", deliverables:"sorting mat + graph page"},
+     {title:"Produce Place Value",
+      desc:"Use fruits/veggies as base‑ten counters.",
+      subjects:["place value","addition"], formats:["math centers"], grades:"1–2", deliverables:"task cards"},
+     {title:"Opinion Writing: Veggie vs Fruit Snack",
+      desc:"Students pick a snack and justify with reasons.",
+      subjects:["writing"], formats:["writing prompts"], grades:"2–4", deliverables:"planning + draft pages"}
+   ]},
+  {month:"November", name:"Diwali", date:"Early Nov (varies)", blurb:"Festival of Lights activities focused on culture and art.",
+   chips:["culture","art","math"],
+   ideas:[
+     {title:"Rangoli Symmetry Pack",
+      desc:"Line/rotational symmetry practice with rangoli grids.",
+      subjects:["fractions","geometry"], formats:["worksheets","color by number"], grades:"2–5", deliverables:"printable templates"},
+     {title:"Diwali Reading Passage & Questions",
+      desc:"Age‑appropriate overview with vocab, main idea, and details.",
+      subjects:["reading comprehension","reading comprehension passages and questions"], formats:["passage + questions"], grades:"2–5", deliverables:"2 levels"},
+     {title:"Diyas Craft & Adjectives",
+      desc:"Cut‑and‑assemble lamp craft; label with descriptive adjectives.",
+      subjects:["nouns","writing"], formats:["craft"], grades:"1–3", deliverables:"B/W + color"}
+   ]},
+  {month:"November", name:"Sandwich Day", date:"Nov 3", blurb:"A tasty hook for math, writing, and sequencing.",
+   chips:["ELA","math","sequencing"],
+   ideas:[
+     {title:"Fractions of a Sandwich",
+      desc:"Partition into halves/quarters; color by fraction.",
+      subjects:["fractions","color by number"], formats:["worksheets"], grades:"2–3", deliverables:"3 sheets"},
+     {title:"How‑To Writing: Make a Sandwich",
+      desc:"Sequence with first/next/then/finally + verbs & nouns.",
+      subjects:["writing","nouns"], formats:["writing prompts"], grades:"1–3", deliverables:"graphic organizer + page"},
+     {title:"Word Problems at the Deli",
+      desc:"Addition/subtraction with prices and totals.",
+      subjects:["word problems","addition"], formats:["math story problems"], grades:"2–4", deliverables:"task cards"}
+   ]},
+  {month:"November", name:"Election Day (US, even years)", date:"First Tuesday (even years)",
+   blurb:"Civics‑lite activities focusing on voting and choices.", chips:["civics","reading","graphing"],
+   ideas:[
+     {title:"Class Vote & Bar Graph",
+      desc:"Hold a simple ballot on a fun topic; graph results.",
+      subjects:["graphing","addition"], formats:["math + social studies"], grades:"1–3", deliverables:"ballots + graph page"},
+     {title:"What Is a Vote? Reading",
+      desc:"Short informational text with text‑evidence questions.",
+      subjects:["reading comprehension"], formats:["passage + questions"], grades:"2–4", deliverables:"2 levels"},
+     {title:"Opinion Writing: My Choice",
+      desc:"Students defend a classroom choice using reasons.",
+      subjects:["writing"], formats:["writing prompts"], grades:"2–4", deliverables:"planner + draft"}
+   ]},
+  {month:"November", name:"STEM/STEAM Day", date:"Nov 8", blurb:"Quick challenges to celebrate creativity in STEM.",
+   chips:["STEM/STEAM","math","engineering"],
+   ideas:[
+     {title:"Paper Tower Challenge",
+      desc:"Measure height, compare, and record data.",
+      subjects:["measurement","word problems"], formats:["STEM challenge"], grades:"2–6", deliverables:"recording sheets"},
+     {title:"Shape Hunt & Nouns Labeling",
+      desc:"Identify classroom shapes; label with nouns.",
+      subjects:["nouns","geometry"], formats:["scavenger hunt"], grades:"1–3", deliverables:"checklist + anchor"},
+     {title:"Design a Bridge Mini‑Project",
+      desc:"Plan, build, test; write reflections.",
+      subjects:["writing","fractions"], formats:["project sheets"], grades:"3–5", deliverables:"rubric + templates"}
+   ]},
+  {month:"November", name:"National School Psychology Week", date:"Early Nov (week)", blurb:"Emphasize feelings, growth, and goals.",
+   chips:["SEL","writing","reading"],
+   ideas:[
+     {title:"Feelings to Nouns Sort",
+      desc:"Sort feelings words; write sentences.",
+      subjects:["nouns","writing"], formats:["centers"], grades:"1–3", deliverables:"cards + sheets"},
+     {title:"Growth Goal Planner",
+      desc:"SMART goals with weekly check‑ins.",
+      subjects:["writing"], formats:["planner"], grades:"2–5", deliverables:"trackers"},
+     {title:"Kindness Reading & Coloring",
+      desc:"Short passages about helping; color‑by‑sight‑word.",
+      subjects:["reading comprehension","sight words","color by number"], formats:["worksheets"], grades:"1–2", deliverables:"B/W"}
+   ]},
+  {month:"November", name:"World Science Day for Peace & Development", date:"Nov 10",
+   blurb:"Connect science to community and problem‑solving.", chips:["science","STEM/STEAM","writing"],
+   ideas:[
+     {title:"Local Problem, Simple Solution",
+      desc:"Identify a classroom problem; propose a science‑based fix.",
+      subjects:["writing","word problems"], formats:["project sheet"], grades:"3–5", deliverables:"template + rubric"},
+     {title:"Peaceful Patterns",
+      desc:"Create tessellation or pattern art; describe the rule.",
+      subjects:["multiplication","patterns"], formats:["art + math"], grades:"2–5", deliverables:"grid pages"},
+     {title:"Inventor Reading Mini",
+      desc:"Short bio of an inventor + questions.",
+      subjects:["reading comprehension"], formats:["passage"], grades:"2–4", deliverables:"2 levels"}
+   ]},
+  {month:"November", name:"Veterans Day (US)", date:"Nov 11",
+   blurb:"Respectful learning about service and gratitude.", chips:["civics","ELA","art"],
+   ideas:[
+     {title:"Thank‑You Letter Template",
+      desc:"Guided letter writing with sentence frames.",
+      subjects:["writing"], formats:["writing prompts"], grades:"1–5", deliverables:"primary + intermediate"},
+     {title:"Symbols of Service Reading",
+      desc:"Short text about poppies/flags; text‑evidence questions.",
+      subjects:["reading comprehension"], formats:["passage + questions"], grades:"2–4", deliverables:"B/W"},
+     {title:"Patriotic Fractions & Stars",
+      desc:"Shade fractions of stars; compare fractions.",
+      subjects:["fractions"], formats:["worksheets"], grades:"2–4", deliverables:"3 sheets"}
+   ]},
+  {month:"November", name:"Fancy Rat & Mouse Day", date:"Nov 12",
+   blurb:"A quirky hook for science and ELA.", chips:["science","ELA","math"],
+   ideas:[
+     {title:"Rodent Facts Mini‑Book",
+      desc:"Read, highlight nouns, and illustrate.",
+      subjects:["reading comprehension","nouns"], formats:["mini‑book"], grades:"1–3", deliverables:"foldable"},
+     {title:"Cheese Fractions",
+      desc:"Partition circles as cheese slices; word problems.",
+      subjects:["fractions","word problems"], formats:["worksheets"], grades:"2–4", deliverables:"task cards"},
+     {title:"If I Had a Pet Rat…",
+      desc:"Narrative writing with planning boxes.",
+      subjects:["writing prompts"], formats:["writing"], grades:"2–4", deliverables:"planner + lined page"}
+   ]},
+  {month:"November", name:"World Kindness Day", date:"Nov 13",
+   blurb:"Promote empathy with simple actions and writing.", chips:["SEL","writing","reading"],
+   ideas:[
+     {title:"Kindness Bingo",
+      desc:"Students complete acts of kindness; reflect in sentences.",
+      subjects:["writing"], formats:["bingo + journal"], grades:"1–4", deliverables:"B/W + color"},
+     {title:"Kindness Reading & Questions",
+      desc:"Short passage on everyday kindness.",
+      subjects:["reading comprehension"], formats:["passage"], grades:"2–4", deliverables:"2 levels"},
+     {title:"Noun Hunt: People, Places, Things",
+      desc:"Identify kindness‑related nouns; categorize.",
+      subjects:["nouns"], formats:["worksheet"], grades:"1–3", deliverables:"sort mat"}
+   ]},
+  {month:"November", name:"World Diabetes Day", date:"Nov 14",
+   blurb:"Basic awareness with healthy choices focus.", chips:["health","math","ELA"],
+   ideas:[
+     {title:"Sugar Count Word Problems",
+      desc:"Compare sugar grams; add totals.",
+      subjects:["word problems","addition"], formats:["worksheets"], grades:"3–5", deliverables:"answer key"},
+     {title:"Healthy Snack Sorting",
+      desc:"Visual sort; write one sentence choice.",
+      subjects:["nouns","writing"], formats:["cut‑paste"], grades:"1–3", deliverables:"cards + mat"},
+     {title:"Reading: What Is Diabetes?",
+      desc:"Kid‑friendly overview + main idea.",
+      subjects:["reading comprehension"], formats:["passage"], grades:"3–5", deliverables:"B/W"}
+   ]},
+  {month:"November", name:"America Recycles Day", date:"Nov 15",
+   blurb:"Recycling math, sorting, and persuasive writing.", chips:["science","math","writing"],
+   ideas:[
+     {title:"Recycling Graph & Tally",
+      desc:"Classroom tally to bar graph.",
+      subjects:["addition","graphing"], formats:["worksheet"], grades:"1–3", deliverables:"data sheet + graph"},
+     {title:"Sort It! Paper‑Plastic‑Metal",
+      desc:"Cut‑paste sorting center.",
+      subjects:["nouns"], formats:["centers"], grades:"K–2", deliverables:"cards"},
+     {title:"Persuasive Poster: Recycle Here",
+      desc:"Slogan writing + poster layout.",
+      subjects:["writing"], formats:["poster"], grades:"2–5", deliverables:"template"}
+   ]},
+  {month:"November", name:"Button Day", date:"Nov 16",
+   blurb:"Buttons for counting, arrays, and art.", chips:["math","art","fine motor"],
+   ideas:[
+     {title:"Array City with Buttons",
+      desc:"Build arrays; write multiplication sentences.",
+      subjects:["multiplication"], formats:["project"], grades:"2–4", deliverables:"grid + rubric"},
+     {title:"Sorting & Nouns Labels",
+      desc:"Sort by attributes; label nouns.",
+      subjects:["nouns"], formats:["worksheet"], grades:"1–2", deliverables:"mat"},
+     {title:"Color‑by‑Sum Button Jar",
+      desc:"Add two numbers to find jar colors.",
+      subjects:["addition","color by number"], formats:["worksheet"], grades:"1–2", deliverables:"1 page"}
+   ]},
+  {month:"November", name:"World Prematurity Day", date:"Nov 17",
+   blurb:"Age‑appropriate awareness and kindness notes.", chips:["SEL","writing"],
+   ideas:[
+     {title:"Tiny But Mighty Cards",
+      desc:"Template cards with positive messages.",
+      subjects:["writing"], formats:["cards"], grades:"2–5", deliverables:"B/W + color"},
+     {title:"Reading: Newborn Care Heroes",
+      desc:"Short passage about NICU helpers.",
+      subjects:["reading comprehension","community helpers"], formats:["passage"], grades:"2–4", deliverables:"questions"},
+     {title:"Kindness Chain",
+      desc:"Write kind notes; build paper chain.",
+      subjects:["writing"], formats:["craft"], grades:"K–3", deliverables:"strips"}
+   ]},
+  {month:"November", name:"Geography Awareness Week", date:"3rd week of Nov",
+   blurb:"Maps, continents, and cultures.", chips:["social studies","ELA","math"],
+   ideas:[
+     {title:"Continents & Oceans Labeling",
+      desc:"Map work with a mini‑quiz.",
+      subjects:["reading comprehension"], formats:["worksheet"], grades:"2–5", deliverables:"B/W"},
+     {title:"Miles to Meals Word Problems",
+      desc:"Distances on a map; addition/subtraction.",
+      subjects:["word problems"], formats:["math"], grades:"3–5", deliverables:"task cards"},
+     {title:"Travel Journal Writing",
+      desc:"Prompted pages for an imaginary trip.",
+      subjects:["writing prompts"], formats:["journal"], grades:"2–4", deliverables:"cover + pages"}
+   ]},
+  {month:"November", name:"Mickey Mouse Day", date:"Nov 18",
+   blurb:"Use a generic ‘friendly mouse’ motif to avoid trademarks.", chips:["art","ELA","math"],
+   ideas:[
+     {title:"Mouse Shapes & Fractions",
+      desc:"Compose images from shapes; shade fractions.",
+      subjects:["fractions","geometry"], formats:["worksheets"], grades:"1–3", deliverables:"templates"},
+     {title:"Squeak‑tastic Sight Words",
+      desc:"Themed flash cards + read‑and‑color.",
+      subjects:["sight words","reading"], formats:["centers"], grades:"K–1", deliverables:"cards"},
+     {title:"If I Were a Tiny Mouse…",
+      desc:"Narrative prompt with picture box.",
+      subjects:["writing prompts"], formats:["writing"], grades:"1–2", deliverables:"B/W"}
+   ]},
+  {month:"November", name:"International Men’s Day", date:"Nov 19",
+   blurb:"Focus on positive role models and goals.", chips:["SEL","ELA"],
+   ideas:[
+     {title:"Role Model Bio & Nouns",
+      desc:"Read mini bios; identify nouns.",
+      subjects:["reading comprehension","nouns"], formats:["passage"], grades:"2–4", deliverables:"question page"},
+     {title:"Goal Letter to Myself",
+      desc:"SMART goal letter template.",
+      subjects:["writing"], formats:["writing prompts"], grades:"2–5", deliverables:"planner + letter page"},
+     {title:"Data Talk: Helpers in Our School",
+      desc:"Graph roles; discuss diversity.",
+      subjects:["graphing","addition"], formats:["worksheet"], grades:"2–4", deliverables:"bar graph page"}
+   ]},
+  {month:"November", name:"World Hello Day", date:"Nov 21",
+   blurb:"Greetings in languages around the world.", chips:["ELA","culture"],
+   ideas:[
+     {title:"Hello Around the World Mini‑Book",
+      desc:"Trace, read, and match countries.",
+      subjects:["reading comprehension"], formats:["mini‑book"], grades:"1–3", deliverables:"cut‑fold book"},
+     {title:"Dialogue Bubbles",
+      desc:"Write a friendly greeting comic.",
+      subjects:["writing"], formats:["comic strip"], grades:"2–4", deliverables:"templates"},
+     {title:"Greeting Graph",
+      desc:"Class vote on favorite greeting; graph data.",
+      subjects:["graphing","addition"], formats:["worksheet"], grades:"1–3", deliverables:"graph sheet"}
+   ]},
+  {month:"November", name:"Fibonacci Day", date:"Nov 23",
+   blurb:"Patterns spiraling into math art.", chips:["math","patterns"],
+   ideas:[
+     {title:"Fibonacci Squares Art",
+      desc:"Build spiral with square tiles; measure sides.",
+      subjects:["addition","place value"], formats:["project"], grades:"3–5", deliverables:"grid + task"},
+     {title:"Pattern Rules Task Cards",
+      desc:"Complete sequences; explain the rule.",
+      subjects:["multiplication","patterns"], formats:["task cards"], grades:"2–5", deliverables:"24 cards"},
+     {title:"Fibonacci in Nature Reading",
+      desc:"Short nonfiction + main idea.",
+      subjects:["reading comprehension"], formats:["passage"], grades:"3–5", deliverables:"B/W"}
+   ]},
+  {month:"November", name:"Shopping Reminder Day", date:"Nov 25",
+   blurb:"Practical math and persuasive writing.", chips:["math","writing"],
+   ideas:[
+     {title:"Wishlist Budgets",
+      desc:"Add totals; compare to a budget.",
+      subjects:["addition","word problems"], formats:["worksheet"], grades:"2–4", deliverables:"answer key"},
+     {title:"Adjectives That Sell",
+      desc:"Write an ad for a classroom item.",
+      subjects:["writing","nouns"], formats:["writing prompts"], grades:"2–4", deliverables:"template"},
+     {title:"Graph the Picks",
+      desc:"Tally top choices; build bar graph.",
+      subjects:["graphing"], formats:["worksheet"], grades:"1–3", deliverables:"graph page"}
+   ]},
+  {month:"November", name:"Native American Heritage Day (US)", date:"Day after US Thanksgiving",
+   blurb:"Extend Heritage Month with reflection and learning.", chips:["social studies","ELA"],
+   ideas:[
+     {title:"Who Lived Here First? Map Intro",
+      desc:"Locate Indigenous nations using student‑safe maps.",
+      subjects:["reading comprehension"], formats:["map activity"], grades:"2–5", deliverables:"outline maps"},
+     {title:"Respectful Vocabulary",
+      desc:"Learn terms like nation, tribe, tradition; use in sentences.",
+      subjects:["nouns","writing"], formats:["worksheet"], grades:"2–4", deliverables:"vocab cards"},
+     {title:"Thank‑You to Knowledge Keepers",
+      desc:"Write gratitude notes for cultural knowledge.",
+      subjects:["writing"], formats:["cards"], grades:"2–5", deliverables:"B/W"}
+   ]},
+  {month:"November", name:"Thanksgiving (US)", date:"4th Thu in Nov",
+   blurb:"ELA and math with gratitude themes.", chips:["ELA","math","craft"],
+   ideas:[
+     {title:"Gratitude Writing Prompts",
+      desc:"Sentence frames + draw box for primary; lined for older.",
+      subjects:["writing prompts"], formats:["writing"], grades:"K–5", deliverables:"differentiated"},
+     {title:"Thanksgiving Word Problems",
+      desc:"Multi‑step with meals, seating, and travel.",
+      subjects:["word problems","addition","fractions"], formats:["worksheets"], grades:"2–5", deliverables:"answer key"},
+     {title:"Table Place Cards Craft",
+      desc:"Cut, fold, and write a kind note.",
+      subjects:["nouns","writing"], formats:["craft"], grades:"1–4", deliverables:"B/W + color"}
+   ]},
+  {month:"November", name:"Turkey in Disguise Project", date:"Mid–late Nov",
+   blurb:"Creative persuasion: save a turkey with a disguise.", chips:["writing","craft"],
+   ideas:[
+     {title:"Persuasive Letter: Don’t Eat Me!",
+      desc:"Claim + 3 reasons + closing; printable frames.",
+      subjects:["writing"], formats:["writing prompts"], grades:"1–4", deliverables:"planner + letter"},
+     {title:"Math the Disguise",
+      desc:"Measure, count shapes used; tally totals.",
+      subjects:["addition","geometry"], formats:["worksheet"], grades:"1–3", deliverables:"record sheet"},
+     {title:"Hallway Display Kit",
+      desc:"Headers, tags, and rubric for quick bulletin board.",
+      subjects:["bulletin board"], formats:["display kit"], grades:"K–5", deliverables:"print pack"}
+   ]},
+  {month:"November", name:"Thanksgiving Placemat", date:"Week of Thanksgiving",
+   blurb:"Print‑and‑go placemats mixing puzzles and gratitude.", chips:["ELA","math","art"],
+   ideas:[
+     {title:"Color‑by‑Sum Turkey",
+      desc:"Single‑digit or two‑digit options.",
+      subjects:["addition","color by number"], formats:["worksheet"], grades:"1–3", deliverables:"2 levels"},
+     {title:"Thankful Word Search & Nouns",
+      desc:"Find and sort words into noun categories.",
+      subjects:["reading","nouns"], formats:["worksheet"], grades:"2–4", deliverables:"answer key"},
+     {title:"Draw Your Plate",
+      desc:"Directed drawing + label food groups.",
+      subjects:["writing"], formats:["art + labeling"], grades:"1–3", deliverables:"placemat template"}
+   ]},
+  {month:"November", name:"Thanksgiving Escape Room", date:"Week of Thanksgiving",
+   blurb:"Puzzle set reviewing key ELA and math skills.", chips:["escape room","ELA","math"],
+   ideas:[
+     {title:"Cipher the Synonyms",
+      desc:"Decode fall words; match synonyms.",
+      subjects:["reading","nouns"], formats:["puzzle"], grades:"2–4", deliverables:"clue cards"},
+     {title:"Feast Fractions Locks",
+      desc:"Solve fraction puzzles to get lock codes.",
+      subjects:["fractions"], formats:["puzzle"], grades:"3–5", deliverables:"locks sheet"},
+     {title:"Seating Plan Word Problems",
+      desc:"Multi‑step table arrangements.",
+      subjects:["word problems","addition"], formats:["puzzle"], grades:"2–4", deliverables:"task sheets"}
+   ]},
+  {month:"November", name:"Fall Break (some districts)", date:"Varies",
+   blurb:"Low‑prep packets and sub plans.", chips:["packet","ELA","math"],
+   ideas:[
+     {title:"Mini Morning Work Pack",
+      desc:"5‑day mixed review with fall art corners.",
+      subjects:["morning work","addition","reading comprehension"], formats:["packet"], grades:"1–3", deliverables:"10 pages"},
+     {title:"Finish‑Early Centers",
+      desc:"Task cards for sight words and math facts.",
+      subjects:["sight words","multiplication"], formats:["centers"], grades:"1–4", deliverables:"cards + recording"},
+     {title:"Color‑and‑Solve",
+      desc:"Blend coloring with quick problems.",
+      subjects:["color by number","word problems"], formats:["worksheets"], grades:"1–3", deliverables:"print set"}
+   ]},
+  {month:"November", name:"Computer Security Day", date:"Nov 30",
+   blurb:"Digital citizenship starter activities.", chips:["technology","ELA"],
+   ideas:[
+     {title:"Strong Password Sort",
+      desc:"Good vs weak; create a strong example.",
+      subjects:["reading comprehension"], formats:["sort"], grades:"3–5", deliverables:"cards"},
+     {title:"Phishing or Not?",
+      desc:"Scenario cards; students justify answers.",
+      subjects:["writing"], formats:["discussion cards"], grades:"3–5", deliverables:"answer key"},
+     {title:"Poster: Protect Your Info",
+      desc:"Slogan + 3 rules poster.",
+      subjects:["writing"], formats:["poster"], grades:"2–5", deliverables:"templates"}
+   ]},
+
+  // ---------------------- DECEMBER ----------------------
+  {month:"December", name:"World AIDS Day", date:"Dec 1",
+   blurb:"Age‑appropriate awareness: helpers, health, and kindness.", chips:["health","SEL","reading"],
+   ideas:[
+     {title:"Community Helpers Reading",
+      desc:"Focus on doctors, nurses, scientists; text‑evidence.",
+      subjects:["reading comprehension"], formats:["passage"], grades:"2–4", deliverables:"questions"},
+     {title:"Kindness Notes",
+      desc:"Write supportive messages on ribbon templates.",
+      subjects:["writing"], formats:["cards"], grades:"1–4", deliverables:"B/W"},
+     {title:"Healthy Habits Sort",
+      desc:"Daily choices sort and reflect.",
+      subjects:["nouns","writing"], formats:["worksheet"], grades:"1–3", deliverables:"cut‑paste"}
+   ]},
+  {month:"December", name:"Go to an Art Museum Day", date:"Dec 9",
+   blurb:"Bring the museum to class with observation and writing.", chips:["art","writing","reading"],
+   ideas:[
+     {title:"See‑Think‑Wonder Cards",
+      desc:"Look at kid‑safe artworks; write observations.",
+      subjects:["writing"], formats:["task cards"], grades:"2–5", deliverables:"cards + response sheet"},
+     {title:"Shapes in Art Hunt",
+      desc:"Find shapes; tally and graph.",
+      subjects:["geometry","graphing"], formats:["worksheet"], grades:"1–3", deliverables:"graph page"},
+     {title:"Artist Bio Mini‑Reads",
+      desc:"Short bios with key facts.",
+      subjects:["reading comprehension"], formats:["passage"], grades:"2–4", deliverables:"B/W"}
+   ]},
+  {month:"December", name:"Computer Science Education Week (Hour of Code)", date:"Early Dec (week)",
+   blurb:"Unplugged logic and patterning tie‑ins.", chips:["CS/Hour of Code","patterns","ELA"],
+   ideas:[
+     {title:"Unplugged Coding Mats",
+      desc:"Arrows and commands to move a character.",
+      subjects:["patterns","addition"], formats:["centers"], grades:"1–3", deliverables:"mats + tiles"},
+     {title:"Debug the Directions",
+      desc:"Sequencing and editing a set of steps.",
+      subjects:["reading comprehension"], formats:["worksheet"], grades:"2–4", deliverables:"answer key"},
+     {title:"If‑Then Story Starters",
+      desc:"Write outcomes with if/then logic.",
+      subjects:["writing"], formats:["writing prompts"], grades:"2–5", deliverables:"pages"}
+   ]},
+  {month:"December", name:"Gingerbread Theme Week", date:"Early–Mid Dec",
+   blurb:"Student‑favorite with math, reading, and crafts.", chips:["ELA","math","craft"],
+   ideas:[
+     {title:"Gingerbread Reading Pack",
+      desc:"Passages & questions about stories and traditions.",
+      subjects:["reading comprehension","reading comprehension passages and questions"], formats:["passage + questions"], grades:"1–3", deliverables:"2 levels"},
+     {title:"Cookie Fractions & Arrays",
+      desc:"Partition cookies; build arrays for multiplication.",
+      subjects:["fractions","multiplication"], formats:["worksheets"], grades:"2–4", deliverables:"print set"},
+     {title:"Decorate‑a‑Gingerbread Craft",
+      desc:"Cut‑paste pieces; label with nouns & adjectives.",
+      subjects:["nouns","writing"], formats:["craft"], grades:"K–2", deliverables:"B/W"}
+   ]},
+  {month:"December", name:"Gingerbread House Day", date:"Dec 12",
+   blurb:"STEM + geometry + sweet writing prompts.", chips:["STEM/STEAM","geometry","writing"],
+   ideas:[
+     {title:"Paper Gingerbread House STEM",
+      desc:"Plan, build, test stability; measure height.",
+      subjects:["measurement","word problems"], formats:["project"], grades:"2–5", deliverables:"blueprints + rubric"},
+     {title:"Shape Nets & Faces",
+      desc:"Match nets to 3D shapes on houses.",
+      subjects:["geometry"], formats:["worksheets"], grades:"3–5", deliverables:"answer key"},
+     {title:"How To Decorate a House",
+      desc:"Procedural writing with checklists.",
+      subjects:["writing"], formats:["writing prompts"], grades:"2–4", deliverables:"planner + steps"}
+   ]},
+  {month:"December", name:"Arabic Language Day", date:"Dec 18",
+   blurb:"Celebrate language with letters and greetings.", chips:["language","ELA","culture"],
+   ideas:[
+     {title:"Hello in Arabic Mini‑Page",
+      desc:"Trace and write ‘Marhaba’; match to flag map.",
+      subjects:["reading","nouns"], formats:["worksheet"], grades:"1–3", deliverables:"B/W"},
+     {title:"Right‑to‑Left Awareness",
+      desc:"Simple activity showing text directionality.",
+      subjects:["reading comprehension"], formats:["worksheet"], grades:"2–4", deliverables:"guided page"},
+     {title:"Name Art Poster",
+      desc:"Design a name poster inspired by Arabic calligraphy (no scripts required).",
+      subjects:["art","writing"], formats:["poster"], grades:"2–5", deliverables:"template"}
+   ]},
+  {month:"December", name:"Human Rights Day", date:"Dec 10",
+   blurb:"Rights, needs, and responsibilities at kid level.", chips:["civics","ELA"],
+   ideas:[
+     {title:"Needs vs Wants Sort",
+      desc:"Cut‑paste activity with examples.",
+      subjects:["nouns"], formats:["worksheet"], grades:"1–3", deliverables:"cut‑paste"},
+     {title:"Right to Learn Reading",
+      desc:"Short text + main idea questions.",
+      subjects:["reading comprehension"], formats:["passage"], grades:"2–4", deliverables:"B/W"},
+     {title:"Class Charter Poster",
+      desc:"Write 3 rights and 3 responsibilities.",
+      subjects:["writing"], formats:["poster"], grades:"2–5", deliverables:"template"}
+   ]},
+  {month:"December", name:"Cookie Day", date:"Dec 4",
+   blurb:"Sweet math and sequencing.", chips:["math","ELA"],
+   ideas:[
+     {title:"Cookie Place Value",
+      desc:"Base‑ten cookies and trays; expand and compare.",
+      subjects:["place value"], formats:["worksheets"], grades:"1–3", deliverables:"print set"},
+     {title:"How‑To Decorate Cookies",
+      desc:"Sequencing with imperative verbs.",
+      subjects:["writing"], formats:["writing prompts"], grades:"1–3", deliverables:"B/W page"},
+     {title:"Color‑by‑Sum Cookie Sheet",
+      desc:"Add and color.",
+      subjects:["addition","color by number"], formats:["worksheet"], grades:"1–2", deliverables:"1 page"}
+   ]},
+  {month:"December", name:"St. Nicholas Day", date:"Dec 6",
+   blurb:"Giving and kindness theme.", chips:["SEL","ELA","math"],
+   ideas:[
+     {title:"Stocking Graphing",
+      desc:"Tally small items; bar graph results.",
+      subjects:["graphing","addition"], formats:["worksheet"], grades:"1–3", deliverables:"graph page"},
+      {title:"Reading: Who Was St. Nicholas?",
+      desc:"Kid‑friendly tradition overview + questions.",
+      subjects:["reading comprehension"], formats:["passage"], grades:"2–4", deliverables:"B/W"},
+      {title:"Secret Gift Notes",
+      desc:"Write a kind note to a classmate.",
+      subjects:["writing"], formats:["cards"], grades:"1–4", deliverables:"templates"}
+   ]},
+  {month:"December", name:"Ugly Sweater Day (school event)", date:"Mid Dec (varies)",
+   blurb:"Patterning, tallying, and design fun.", chips:["math","art","SEL"],
+   ideas:[
+     {title:"Sweater Patterns",
+      desc:"AB/ABC patterns to extend and create.",
+      subjects:["patterns","multiplication"], formats:["worksheet"], grades:"1–3", deliverables:"pattern cards"},
+     {title:"Class Vote & Graph",
+      desc:"Vote for funniest/coziest; make a graph.",
+      subjects:["graphing","addition"], formats:["worksheet"], grades:"1–3", deliverables:"tally + graph"},
+     {title:"Design‑a‑Sweater",
+      desc:"Directed drawing + writing caption.",
+      subjects:["writing"], formats:["art + writing"], grades:"1–4", deliverables:"template"}
+   ]},
+  {month:"December", name:"Reindeer Activities", date:"All December",
+   blurb:"Winter animal theme for ELA & math.", chips:["ELA","math","science"],
+   ideas:[
+     {title:"Reindeer Facts Reading",
+      desc:"Nonfiction mini with text‑evidence.",
+      subjects:["reading comprehension"], formats:["passage"], grades:"2–4", deliverables:"B/W"},
+     {title:"Antler Angles & Symmetry",
+      desc:"Identify lines of symmetry; estimate angles (older).",
+      subjects:["geometry","fractions"], formats:["worksheets"], grades:"2–5", deliverables:"printables"},
+     {title:"Nouns in the North",
+      desc:"Sort people/places/things with winter words.",
+      subjects:["nouns"], formats:["worksheet"], grades:"1–2", deliverables:"cut‑paste"}
+   ]},
+  {month:"December", name:"Snowman Crafts & Math", date:"All December",
+   blurb:"Counting, place value, and craft templates.", chips:["math","craft"],
+   ideas:[
+     {title:"Snowman Place Value Stack",
+      desc:"Hundreds/tens/ones as snowballs; expand & compare.",
+      subjects:["place value"], formats:["craft + worksheet"], grades:"1–3", deliverables:"templates"},
+     {title:"Snowman Word Problems",
+      desc:"Add/subtract with winter scenarios.",
+      subjects:["word problems","addition"], formats:["worksheets"], grades:"1–3", deliverables:"answer key"},
+     {title:"Color‑by‑Sum Snowman",
+      desc:"Single‑digit practice.",
+      subjects:["color by number","addition"], formats:["worksheet"], grades:"K–1", deliverables:"1 page"}
+   ]},
+  {month:"December", name:"Secret Santa Classroom Helpers", date:"All December",
+   blurb:"Acts of service instead of gifts.", chips:["SEL","writing","classroom management"],
+   ideas:[
+     {title:"Helper Tickets",
+      desc:"Cut‑out tickets with tasks to ‘gift’ time.",
+      subjects:["writing"], formats:["cards"], grades:"1–5", deliverables:"B/W + color"},
+     {title:"Reflection Writing",
+      desc:"How did I help? Who did I lift up?",
+      subjects:["writing prompts"], formats:["journal"], grades:"2–5", deliverables:"pages"},
+     {title:"Graph Our Helpers",
+      desc:"Tally tasks completed each week.",
+      subjects:["graphing","addition"], formats:["worksheet"], grades:"1–3", deliverables:"graph sheet"}
+   ]},
+  {month:"December", name:"Secret Santa Classroom", date:"All December",
+   blurb:"Printable name draw, wish lists, and thank‑you notes.", chips:["SEL","writing"],
+   ideas:[
+     {title:"Name Draw Kit",
+      desc:"Slips, rules, and parent note.",
+      subjects:["reading"], formats:["kit"], grades:"2–5", deliverables:"print pack"},
+     {title:"Wish List Writing",
+      desc:"Needs vs wants + adjectives that persuade.",
+      subjects:["writing","nouns"], formats:["worksheet"], grades:"2–4", deliverables:"B/W"},
+     {title:"Thank‑You Cards",
+      desc:"Friendly letter thank‑you.",
+      subjects:["writing"], formats:["cards"], grades:"1–5", deliverables:"templates"}
+   ]},
+  {month:"December", name:"Door & Bulletin Board Kits", date:"All December",
+   blurb:"Holiday and winter‑neutral options for quick displays.", chips:["bulletin board","door decor","letters"],
+   ideas:[
+     {title:"Winter Letters & Numbers Bundle",
+      desc:"Snow, holly, candy cane, and plaid sets.",
+      subjects:["bulletin board"], formats:["letters + numbers"], grades:"K–5", deliverables:"A–Z, 0–9, symbols"},
+     {title:"Goal Door: 2026",
+      desc:"New Year goals door kit with speech bubbles.",
+      subjects:["writing"], formats:["door decor"], grades:"2–6", deliverables:"headers + bubbles"},
+     {title:"Acts of Kindness Tree",
+      desc:"Leaves/ornaments with student notes.",
+      subjects:["writing"], formats:["bulletin board"], grades:"K–5", deliverables:"templates"}
+   ]},
+  {month:"December", name:"Ornament Crafts & Templates", date:"All December",
+   blurb:"Printable keepsakes with writing prompts.", chips:["craft","writing"],
+   ideas:[
+     {title:"Photo Ornament Template",
+      desc:"Circle, star, and mitten frames.",
+      subjects:["writing"], formats:["craft"], grades:"K–5", deliverables:"B/W + color"},
+     {title:"Adjective Ornaments",
+      desc:"Describe a classmate using kind adjectives.",
+      subjects:["nouns","writing"], formats:["worksheet + craft"], grades:"2–4", deliverables:"templates"},
+     {title:"Fraction Ornament Strings",
+      desc:"Shade ornaments to model fractions.",
+      subjects:["fractions"], formats:["worksheet"], grades:"2–4", deliverables:"print set"}
+   ]},
+  {month:"December", name:"Advent Activities", date:"Dec 1–24",
+   blurb:"Optional seasonal countdown with secular tasks.", chips:["ELA","math","SEL"],
+   ideas:[
+     {title:"Countdown Kindness",
+      desc:"Daily simple kindness prompts.",
+      subjects:["writing"], formats:["calendar"], grades:"1–4", deliverables:"B/W"},
+     {title:"Daily Math Mini",
+      desc:"Quick facts or patterns each day.",
+      subjects:["addition","patterns"], formats:["morning work"], grades:"1–3", deliverables:"24 prompts"},
+     {title:"Read & Reflect",
+      desc:"Short read‑aloud prompts for journaling.",
+      subjects:["reading comprehension","writing prompts"], formats:["worksheet"], grades:"1–3", deliverables:"pages"}
+   ]},
+  {month:"December", name:"Reindeer / Polar Express / Grinch Day (popular themes)", date:"Mid Dec (varies)",
+   blurb:"Theme days with literacy + math centers.", chips:["ELA","math","themes"],
+   ideas:[
+     {title:"Theme Day Centers",
+      desc:"Phonics, sight words, and math facts with themed clipart.",
+      subjects:["sight words","addition","multiplication"], formats:["centers"], grades:"1–3", deliverables:"cards + mats"},
+     {title:"Reading & Response",
+      desc:"Story elements, character, and setting.",
+      subjects:["reading comprehension"], formats:["worksheet"], grades:"1–3", deliverables:"response pages"},
+     {title:"Ticket Tally & Graph (Train)",
+      desc:"Collect ‘tickets’; graph totals.",
+      subjects:["graphing","addition"], formats:["worksheet"], grades:"1–3", deliverables:"graph sheet"}
+   ]},
+  {month:"December", name:"Hanukkah", date:"Varies (Dec)",
+   blurb:"Traditions, symbols, and math games.", chips:["culture","ELA","math"],
+   ideas:[
+     {title:"Menorah Math",
+      desc:"Add/subtract candles lit over days.",
+      subjects:["addition","word problems"], formats:["worksheet"], grades:"1–3", deliverables:"answer key"},
+     {title:"Dreidel Fractions",
+      desc:"Spinner outcomes as fractions/graphs.",
+      subjects:["fractions","graphing"], formats:["game + worksheet"], grades:"2–4", deliverables:"print set"},
+     {title:"Reading: Hanukkah Traditions",
+      desc:"Short passage + vocabulary.",
+      subjects:["reading comprehension","nouns"], formats:["passage"], grades:"2–4", deliverables:"questions"}
+   ]},
+  {month:"December", name:"Las Posadas", date:"Dec 16–24",
+   blurb:"Community, songs, and light—culture‑aware activities.", chips:["culture","ELA","art"],
+   ideas:[
+     {title:"Lantern Craft & Adjectives",
+      desc:"Cut‑assemble lantern; write three adjectives.",
+      subjects:["nouns","writing"], formats:["craft"], grades:"1–3", deliverables:"template"},
+     {title:"Posadas Reading",
+      desc:"Kid‑friendly explanation + questions.",
+      subjects:["reading comprehension"], formats:["passage"], grades:"2–4", deliverables:"B/W"},
+     {title:"Neighborhood Map",
+      desc:"Sequence a procession route; use map keys.",
+      subjects:["reading comprehension","map"], formats:["worksheet"], grades:"2–4", deliverables:"map page"}
+   ]},
+  {month:"December", name:"Kwanzaa", date:"Dec 26–Jan 1",
+   blurb:"Seven principles with writing and art.", chips:["culture","SEL","ELA"],
+   ideas:[
+     {title:"Principles Posters",
+      desc:"One poster per principle with prompts.",
+      subjects:["writing"], formats:["poster"], grades:"2–5", deliverables:"7 templates"},
+     {title:"Kinara Fractions",
+      desc:"Shade fractions of 7 candles.",
+      subjects:["fractions"], formats:["worksheet"], grades:"2–4", deliverables:"B/W"},
+     {title:"Community Helpers Tie‑In",
+      desc:"Write how helpers model principles.",
+      subjects:["writing","nouns"], formats:["worksheet"], grades:"2–4", deliverables:"pages"}
+   ]},
+  {month:"December", name:"Winter Holidays Around the World", date:"Mid–late Dec",
+   blurb:"Compare/contrast celebrations respectfully.", chips:["culture","reading","writing"],
+   ideas:[
+     {title:"Compare‑and‑Contrast Mats",
+      desc:"Venns for 2–3 holidays.",
+      subjects:["reading comprehension"], formats:["worksheet"], grades:"2–5", deliverables:"mats"},
+     {title:"Passport Journal",
+      desc:"Stamps + short writes for each stop.",
+      subjects:["writing prompts"], formats:["journal"], grades:"2–4", deliverables:"booklet"},
+     {title:"Holiday Graphing",
+      desc:"Class interest bar graph.",
+      subjects:["graphing","addition"], formats:["worksheet"], grades:"1–3", deliverables:"graph page"}
+   ]},
+  {month:"December", name:"Christmas Season", date:"Dec 25",
+   blurb:"Secular classroom‑friendly activities.", chips:["ELA","math","craft"],
+   ideas:[
+     {title:"Christmas Reading Pack",
+      desc:"Short passages + questions.",
+      subjects:["reading comprehension"], formats:["passage + questions"], grades:"1–3", deliverables:"B/W"},
+     {title:"Place Value Presents",
+      desc:"Expanded form on gift tags.",
+      subjects:["place value"], formats:["worksheets"], grades:"1–3", deliverables:"print set"},
+     {title:"Ornament Fractions",
+      desc:"Shade ornaments by fraction.",
+      subjects:["fractions","color by number"], formats:["worksheet"], grades:"2–4", deliverables:"answer key"}
+   ]},
+  {month:"December", name:"Gingerbread House Day (repeat quick ideas)", date:"Dec 12",
+   blurb:"Bulletin headers & photo frames add‑on.", chips:["bulletin board","craft"],
+   ideas:[
+     {title:"Photo Booth Frames",
+      desc:"Giant printable frames for door display.",
+      subjects:["bulletin board"], formats:["templates"], grades:"K–5", deliverables:"A4/US Letter"},
+     {title:"Letter Set – Candy Cane",
+      desc:"A–Z 0–9 for displays.",
+      subjects:["bulletin board"], formats:["letters + numbers"], grades:"K–5", deliverables:"PNG + PDF"},
+     {title:"Writing: My Dream Gingerbread Street",
+      desc:"Descriptive writing page.",
+      subjects:["writing prompts"], formats:["worksheet"], grades:"1–3", deliverables:"B/W"}
+   ]},
+  {month:"December", name:"Grinch Day (popular theme)", date:"Mid Dec",
+   blurb:"Kindness and character change focus.", chips:["ELA","SEL","craft"],
+   ideas:[
+     {title:"Character Change Map",
+      desc:"Beginning–middle–end feelings.",
+      subjects:["reading comprehension"], formats:["graphic organizer"], grades:"1–3", deliverables:"B/W"},
+     {title:"Grow Three Sizes Kindness",
+      desc:"Write 3 ways to grow your heart.",
+      subjects:["writing"], formats:["poster"], grades:"1–3", deliverables:"template"},
+     {title:"Green Patterns & Sums",
+      desc:"Pattern strips and addition.",
+      subjects:["patterns","addition"], formats:["worksheet"], grades:"K–2", deliverables:"pages"}
+   ]},
+  {month:"December", name:"Reindeer Activities (repeat quick ideas)", date:"All December",
+   blurb:"Add a door kit & craft templates.", chips:["bulletin board","craft"],
+   ideas:[
+     {title:"Reindeer Door Kit",
+      desc:"Eyes, antlers, scarf, and letters.",
+      subjects:["door decor"], formats:["templates"], grades:"K–5", deliverables:"PDF + PNG"},
+     {title:"Directed Drawing + Nouns",
+      desc:"Draw, then label nouns from the picture.",
+      subjects:["nouns","writing"], formats:["worksheet"], grades:"1–3", deliverables:"B/W"},
+     {title:"Antler Angles Task Cards",
+      desc:"Estimate/measure angles (older).",
+      subjects:["geometry"], formats:["task cards"], grades:"4–5", deliverables:"24 cards"}
+   ]},
+  {month:"December", name:"Polar Express Day (school theme)", date:"Mid Dec",
+   blurb:"Tickets, tallies, and story elements.", chips:["ELA","math"],
+   ideas:[
+     {title:"Golden Tickets",
+      desc:"Editable tickets + punch cards.",
+      subjects:["reading"], formats:["templates"], grades:"K–3", deliverables:"PDF"},
+     {title:"Hot Cocoa Fractions",
+      desc:"Fractions of marshmallows; color by code.",
+      subjects:["fractions","color by number"], formats:["worksheet"], grades:"1–3", deliverables:"1 page"},
+     {title:"Setting & Character",
+      desc:"Graphic organizer for story elements.",
+      subjects:["reading comprehension"], formats:["worksheet"], grades:"1–3", deliverables:"B/W"}
+   ]},
+  {month:"December", name:"Winter Solstice", date:"Dec 21",
+   blurb:"Light, shadows, and traditions.", chips:["science","math","ELA"],
+   ideas:[
+     {title:"Shadow Tracking",
+      desc:"Measure shadow length; graph over the day (class demo).",
+      subjects:["measurement","graphing"], formats:["worksheet"], grades:"2–5", deliverables:"charts"},
+     {title:"Reading: Shortest Day",
+      desc:"Nonfiction passage + questions.",
+      subjects:["reading comprehension"], formats:["passage"], grades:"2–4", deliverables:"B/W"},
+     {title:"Poem: Long Night",
+      desc:"Write a winter poem; highlight nouns/adjectives.",
+      subjects:["writing","nouns"], formats:["writing prompts"], grades:"3–5", deliverables:"page"}
+   ]},
+  {month:"December", name:"Computer Science Ed Week Prep", date:"Late Nov – Early Dec",
+   blurb:"Warm‑up logic before the main week.", chips:["CS/Hour of Code","patterns","ELA"],
+   ideas:[
+     {title:"Algorithm Cards",
+      desc:"Cut‑sequence steps to solve a classroom task.",
+      subjects:["reading comprehension"], formats:["cards"], grades:"2–4", deliverables:"cards + key"},
+     {title:"Pattern Paths",
+      desc:"Follow grid paths with pattern rules.",
+      subjects:["patterns","addition"], formats:["worksheet"], grades:"1–3", deliverables:"mats"},
+     {title:"If…Then Comics",
+      desc:"Students finish comic strips using if/then.",
+      subjects:["writing"], formats:["comic"], grades:"2–5", deliverables:"templates"}
+   ]},
+  {month:"December", name:"World Kindness Day (carryover boards)", date:"Nov 13 → Dec boards",
+   blurb:"Turn November kindness into December displays.", chips:["bulletin board","writing"],
+   ideas:[
+     {title:"Kindness Ornament Board",
+      desc:"Ornaments with student notes.",
+      subjects:["writing"], formats:["bulletin board"], grades:"K–5", deliverables:"letters + ornaments"},
+     {title:"Door of Compliments",
+      desc:"Sticky‑note compliments framework.",
+      subjects:["writing"], formats:["door decor"], grades:"2–5", deliverables:"headers"},
+     {title:"Graph Our Kindness",
+      desc:"Bar graph of acts completed.",
+      subjects:["graphing","addition"], formats:["worksheet"], grades:"1–3", deliverables:"graph page"}
+   ]},
+  {month:"December", name:"World Hello Day (carryover displays)", date:"Nov 21 → Dec displays",
+   blurb:"Language greetings display refresh.", chips:["bulletin board","language"],
+   ideas:[
+     {title:"Hello Garland",
+      desc:"Printable multilingual garland.",
+      subjects:["bulletin board"], formats:["templates"], grades:"K–5", deliverables:"PDF"},
+     {title:"Speech Bubble Door",
+      desc:"Students write greetings in bubbles.",
+      subjects:["writing"], formats:["door decor"], grades:"1–4", deliverables:"bubbles + header"},
+     {title:"Sight Word Hellos (K–1)",
+      desc:"Match hellos to sight words (read & stick).",
+      subjects:["sight words"], formats:["center"], grades:"K–1", deliverables:"cards"}
+   ]},
+  {month:"December", name:"New Year Reflection & 2026 Goals", date:"Late Dec",
+   blurb:"Close December with student reflections and goal setting.", chips:["writing","SEL","graphing"],
+   ideas:[
+     {title:"2026 Goal Ladder",
+      desc:"Steps to reach one big goal.",
+      subjects:["writing"], formats:["worksheet"], grades:"2–6", deliverables:"B/W"},
+     {title:"This Year I Learned…",
+      desc:"Sentence frames + drawing box for primary; lined page for older.",
+      subjects:["writing prompts"], formats:["journal"], grades:"1–5", deliverables:"2 versions"},
+     {title:"Graph Our Goals",
+      desc:"Class tally of goal categories.",
+      subjects:["graphing","addition"], formats:["worksheet"], grades:"2–5", deliverables:"graph page"}
+   ]},
+  {month:"December", name:"Winter Break Packets", date:"Late Dec",
+   blurb:"Low‑prep mixed review to send home.", chips:["packet","ELA","math"],
+   ideas:[
+     {title:"10‑Day Mixed Review",
+      desc:"Reading passages + math practice per day.",
+      subjects:["reading comprehension","word problems","addition","fractions"], formats:["packet","morning work"], grades:"2–4", deliverables:"answer key"},
+     {title:"Sight Word & CVC Pack (K–1)",
+      desc:"Daily practice with cut‑and‑paste.",
+      subjects:["sight words"], formats:["packet"], grades:"K–1", deliverables:"B/W"},
+     {title:"Color‑and‑Solve Minis",
+      desc:"Quick color‑by‑sum and phonics pages.",
+      subjects:["color by number"], formats:["worksheets"], grades:"K–2", deliverables:"print set"}
+   ]},
+  {month:"December", name:"K‑12: Christmas/Seasonal Catch‑All", date:"All December",
+   blurb:"For listings like Letters & Numbers or Door Kits.", chips:["bulletin board","door decor"],
+   ideas:[
+     {title:"Secret Santa Classroom Helpers (boards)",
+      desc:"Headers + helper tickets display.",
+      subjects:["bulletin board"], formats:["board kit"], grades:"K–5", deliverables:"PDF"},
+     {title:"Reindeer/Elf/Santa Letter Sets",
+      desc:"A–Z 0–9 PNG + print pages.",
+      subjects:["bulletin board"], formats:["letters + numbers"], grades:"K–5", deliverables:"PNG + PDF"},
+     {title:"Winter Neutral Boards",
+      desc:"Snowflakes, mittens, and plaids—no specific holiday imagery.",
+      subjects:["bulletin board"], formats:["display kit"], grades:"K–5", deliverables:"print pack"}
+   ]}
+];
+
+function render(){
+  const grid = document.getElementById('grid');
+  const sections = [...grid.querySelectorAll('.section-title')];
+  const novAnchor = sections[0];
+  const decAnchor = sections[1];
+  // Remove previous cards
+  [...grid.querySelectorAll('.event-card')].forEach(n=>n.remove());
+
+  const search = document.getElementById('search').value.trim().toLowerCase();
+  const month = document.getElementById('month').value;
+  const subject = document.getElementById('subject').value;
+
+  const filtered = events.filter(ev=>{
+    const matchesMonth = (month==='all' || ev.month===month);
+    const s = search ? (ev.name.toLowerCase().includes(search) || ev.blurb.toLowerCase().includes(search) ||
+      (ev.ideas||[]).some(i=> (i.title+i.desc+(i.subjects||[]).join(' ')+(i.formats||[]).join(' ')).toLowerCase().includes(search))) : true;
+    const subj = subject==='all' ? true : (ev.ideas||[]).some(i => (i.subjects||[]).map(x=>x.toLowerCase()).includes(subject.toLowerCase()));
+    return matchesMonth && s && subj;
+  });
+
+  const count = document.getElementById('count');
+  count.textContent = `${filtered.length} events`;
+
+  const novFrag = document.createDocumentFragment();
+  const decFrag = document.createDocumentFragment();
+
+  filtered.forEach(ev=>{
+    const card = document.createElement('article');
+    card.className = 'event-card';
+    card.setAttribute('tabindex','0');
+    card.setAttribute('data-month', ev.month);
+    card.setAttribute('data-name', ev.name);
+    const ideasHTML = (ev.ideas||[]).map(ideaHTML).join('');
+    card.innerHTML = `
+      <div class="event-head">
+        <div>
+          <div class="event-name">${ev.name}</div>
+          <div class="date">${ev.date||''}</div>
+        </div>
+        <div class="small">${ev.month}</div>
+      </div>
+      <div class="chips">${(ev.chips||[]).map(c=>`<span class="chip">${c}</span>`).join('')}</div>
+      <div class="blurb">${ev.blurb||''}</div>
+      <div class="ideas">${ideasHTML}</div>
+    `;
+    card.addEventListener('click', e=>{
+      const ideas = card.querySelector('.ideas');
+      ideas.style.display = ideas.style.display==='block' ? 'none' : 'block';
+    });
+    card.addEventListener('keypress', e=>{ if(e.key==='Enter' || e.key===' '){ card.click(); e.preventDefault(); }});
+
+    if (ev.month === 'November') novFrag.appendChild(card); else decFrag.appendChild(card);
+  });
+
+  grid.insertBefore(novFrag, decAnchor);
+  grid.appendChild(decFrag);
+}
+
+document.getElementById('search').addEventListener('input', render);
+document.getElementById('month').addEventListener('change', render);
+document.getElementById('subject').addEventListener('change', render);
+document.getElementById('expandAll').addEventListener('click', ()=>{
+  const all = document.querySelectorAll('.event-card .ideas');
+  const someOpen = [...all].some(x=>x.style.display==='block');
+  all.forEach(x=> x.style.display = someOpen ? 'none' : 'block');
+  document.getElementById('expandAll').textContent = someOpen ? 'Expand All' : 'Collapse All';
+});
+render();
+</script>
+</body>
+</html>
